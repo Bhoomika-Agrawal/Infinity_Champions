@@ -1,0 +1,22 @@
+class Solution {
+    public int activitySelection(int[] start, int[] finish) {
+        // code here
+        int[][] arr=new int[start.length][2];
+        for(int i=0;i<arr.length;i++){
+            for(int j=0;j<2;j++){
+                arr[i][0]=start[i];
+                arr[i][1]=finish[i];
+            }
+        }
+        Arrays.sort(arr,(a,b)->Integer.compare(a[1],b[1]));
+        int act=1;
+        int time=arr[0][1];
+        for(int i=1;i<arr.length;i++){
+            if(arr[i][0]>time){
+                act++;
+                time=arr[i][1];
+            }
+        }
+        return act;
+    }
+}
