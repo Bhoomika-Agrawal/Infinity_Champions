@@ -1,0 +1,24 @@
+class Solution {
+    public List<List<Integer>> shiftGrid(int[][] grid, int k) {
+        List<List<Integer>> ll=new ArrayList<>();
+        int m=grid.length;
+        int n=grid[0].length;
+        int[][] ans=new int[m][n];
+        for(int i = 0; i < m; i++){
+            for(int j = 0; j < n; j++){
+                int new_idx = ((i * n) + j + k) % (m * n); //converting a 2d into 1d and shift it by k
+                int new_row = new_idx / n;    //extract row and col from 1 d i.e 1D->2D
+                int new_col = new_idx % n;
+                ans[new_row][new_col] = grid[i][j];
+            }
+        }
+        for(int i = 0; i < m; i++){
+            List<Integer> row = new ArrayList<>();
+            for(int j = 0; j < n; j++){
+                row.add(ans[i][j]);
+            }
+            ll.add(row);
+        }
+        return ll;
+    }
+}
