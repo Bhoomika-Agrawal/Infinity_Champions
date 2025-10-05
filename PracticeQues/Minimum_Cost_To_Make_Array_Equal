@@ -1,0 +1,33 @@
+class Solution {
+    public long minCost(int[] nums, int[] cost) {
+        //if we try to convert all the values of nums to the extreme value in nums then it always requires maxmimum operation so our ans (i.e the no to which we are converting the whole array lies between these two values)
+        int left=Integer.MAX_VALUE,right=Integer.MAX_VALUE;
+        for(int n:nums){
+            left=Math.min(left,n);
+            right=Math.max(right,n);
+        }
+        long ans=0;
+        while(left<=right){
+            int mid=(left+right)/2;
+            long midcost=findcost(nums,cost,mid);
+            long rightcost=findcost(nums,cost,mid+1);
+            if(midcost>rightcost){
+                left=mid+1;
+                ans=rightcost;
+            }
+            else{
+                right=mid-1;
+                ans=midcost;
+            }
+
+        }
+        return ans;
+    }
+    public long findcost(int[] nums,int[] cost,int no){
+        long totalcost=0L;
+        for(int i=0;i<nums.length;i++){
+            totalcost+=1L*Math.abs(nums[i]-no)*cost[i];
+        }
+        return totalcost;
+    }
+}
